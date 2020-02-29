@@ -113,14 +113,14 @@
             </p>
           </div>
         </div>
-        {% for category, goods_list in goods_by_category.items() %}
+        {% for category, goods in goods_by_category.items() %}
           <div class="row">
             <div class="col-12 section-title text-center mb-5">
               <h2 class="d-block">{{category}}</h2>
             </div>
           </div>
           <div class="row">
-            {% for good in goods_list %} 
+            {% for good in goods %} 
               <div class="col-lg-4 mb-5 col-md-6">
                 <div class="wine_v_1 text-center pb-4 pt-5">
                   <img src="images/{{good.image}}" alt="Image" class="img-fluid">
