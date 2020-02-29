@@ -8,7 +8,6 @@ import collections
 from datetime import datetime
 
 
-
 def main():
     goods_path = parse_goods_path()
     template = collect_index_template()
