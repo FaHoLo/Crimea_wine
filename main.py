@@ -3,7 +3,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pandas
-import datetime
+from datetime import datetime
 import collections
 
 
@@ -33,7 +33,7 @@ env = Environment(
 
 template = env.get_template('template.html')
 
-years_delta = datetime.datetime.now().year - datetime.datetime(year=1920, month=1, day=1).year
+years_delta = datetime.now().year - datetime(year=1920, month=1, day=1).year
 
 rendered_page = template.render(
     years_delta=years_delta,
