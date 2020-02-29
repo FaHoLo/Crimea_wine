@@ -25,12 +25,12 @@ def render_index_page(template):
     years_delta = datetime.now().year - datetime(year=1920, month=1, day=1).year
     rendered_page = template.render(
         years_delta=years_delta,
-        goods_by_category=coollect_goods_by_category(),
+        goods_by_category=collect_goods_by_category(),
     )
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
 
-def coollect_goods_by_category():
+def collect_goods_by_category():
     all_goods = pandas.read_excel('wine.xlsx', na_values=['nan'], keep_default_na=False).to_dict(orient='record')
     goods_by_category = collections.OrderedDict()
     for good in all_goods:
