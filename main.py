@@ -43,18 +43,13 @@ def collect_goods_by_category(goods_path):
     all_goods = pandas.read_excel(goods_path, na_values=['nan'], keep_default_na=False).to_dict(orient='record')
     goods_by_category = collections.OrderedDict()
     for good in all_goods:
-        try:
-            goods_by_category[good['Категория']]
-        except KeyError:
-            goods_by_category.update({good['Категория']: []})
-        finally:
-            goods_by_category[good['Категория']].append({
-                    'name': good['Название'],
-                    'sort': good['Сорт'],
-                    'price': good['Цена'],
-                    'image': good['Картинка'],
-                    'profitable': good['Акция'],
-            })
+        goods_by_category.setdefault(good['Категория'], []).append({
+                'name': good['Название'],
+                'sort': good['Сорт'],
+                'price': good['Цена'],
+                'image': good['Картинка'],
+                'profitable': good['Акция'],
+        })
     goods_by_category.move_to_end('Напитки')
     return goods_by_category
 
