@@ -9,17 +9,16 @@ from datetime import datetime
 
 
 def main():
-    goods_path = parse_goods_path()
+    parser = configure_parser()
     template = collect_index_template()
-    render_index_page(template, goods_path)
+    render_index_page(template, parser)
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
     server.serve_forever()
 
-def parse_goods_path():
+def configure_parser():
     parser = argparse.ArgumentParser(description='Программа запустит сайт авторского вина. В качестве аргумента передайте путь к Excel-файлу с данными о товарах.')
     parser.add_argument('goods_path', help='Путь к Excel-файлу с данными о товарах')
-    args = parser.parse_args()
-    return args.goods_path
+    return parser
 
 def collect_index_template():
     env = Environment(
@@ -29,7 +28,8 @@ def collect_index_template():
     template = env.get_template('template.html')
     return template
 
-def render_index_page(template, goods_path):
+def render_index_page(template, parser):
+    goods_path = parser.parse_args().goods_path
     years_delta = datetime.now().year - 1920
     rendered_page = template.render(
         years_delta=years_delta,
