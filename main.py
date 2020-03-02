@@ -30,7 +30,7 @@ def collect_index_template():
     return template
 
 def render_index_page(template, goods_path):
-    years_delta = datetime.now().year - datetime(year=1920, month=1, day=1).year
+    years_delta = datetime.now().year - 1920
     rendered_page = template.render(
         years_delta=years_delta,
         goods_by_category=collect_goods_by_category(goods_path),
