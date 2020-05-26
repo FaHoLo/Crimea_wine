@@ -1,11 +1,10 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-
-import pandas
 import argparse
 import collections
 from datetime import datetime
+
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+import pandas
 
 
 def main():
@@ -15,10 +14,12 @@ def main():
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
     server.serve_forever()
 
+
 def configure_parser():
     parser = argparse.ArgumentParser(description='Программа запустит сайт авторского вина. В качестве аргумента передайте путь к Excel-файлу с данными о товарах.')
     parser.add_argument('goods_path', help='Путь к Excel-файлу с данными о товарах')
     return parser
+
 
 def collect_index_template():
     env = Environment(
@@ -27,6 +28,7 @@ def collect_index_template():
     )
     template = env.get_template('template.html')
     return template
+
 
 def render_index_page(template, parser):
     goods_path = parser.parse_args().goods_path
@@ -37,6 +39,7 @@ def render_index_page(template, parser):
     )
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
+
 
 def collect_goods_by_category(goods_path):
     all_goods = pandas.read_excel(goods_path, na_values=['nan'], keep_default_na=False).to_dict(orient='record')
@@ -51,6 +54,7 @@ def collect_goods_by_category(goods_path):
         })
     goods_by_category.move_to_end('Напитки')
     return goods_by_category
+
 
 if __name__ == "__main__":
     main()
