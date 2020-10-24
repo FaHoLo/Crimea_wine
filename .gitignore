@@ -64,6 +64,3 @@ venv.bak/
 # Excel files
 *.xlsx
 *.xls
-
-# Rendered index page
-index.html
